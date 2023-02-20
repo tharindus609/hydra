@@ -1,0 +1,8 @@
+pi:
+  hosts:
+    picore.bi-frost:
+dev:
+  hosts:
+    olympus.bi-frost:
+  vars:
+    ansible_user: lucifer
