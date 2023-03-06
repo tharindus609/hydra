@@ -5,3 +5,4 @@
   roles:
     - system-update
     - docker
+    - portainer-agent
