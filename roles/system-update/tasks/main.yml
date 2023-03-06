@@ -1,0 +1,16 @@
+---
+- name: Update caches, perform a full upgrade and a little housekeep
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: safe
+    autoclean: true
+    autoremove: true
+
+- name: Install core packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python3-pip

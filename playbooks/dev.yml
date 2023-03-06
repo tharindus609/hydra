@@ -1,0 +1,8 @@
+---
+- name: Provision Dev Servers
+  hosts: dev
+
+  roles:
+    - system-update
+    - docker
+    - portainer-agent
