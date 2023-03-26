@@ -6,3 +6,4 @@
     - system-update
     - docker
     - portainer-agent
+    - cadvisor
