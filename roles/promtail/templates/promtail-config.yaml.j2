@@ -1,0 +1,23 @@
+#===============================================================#
+# fully managed by ansible -- Manual edits will be OVER-WRITTEN #
+#===============================================================#
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://olympus:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: authlog
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: authlog
+      host: {{ ansible_hostname }}
+      __path__: /var/log/auth.log

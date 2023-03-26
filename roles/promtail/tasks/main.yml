@@ -1,0 +1,26 @@
+- name: Create promtail config dir
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/etc/promtail
+    state: directory
+
+- name: Create promtail config file
+  become: true
+  template:
+    src: templates/promtail-config.yaml.j2
+    dest: /usr/local/etc/promtail/promtail-config.yaml
+
+- name: Start promtail agent
+  become: true
+  community.docker.docker_container:
+    name: promtail
+    image: grafana/promtail:latest
+    volumes:
+      - /usr/local/etc/promtail/promtail-config.yaml:/etc/promtail/promtail-config.yaml
+      - /var/log:/var/log:ro
+    command: 
+      - -config.file=/etc/promtail/promtail-config.yaml
+    ports:
+      - 9103:9001
+    restart_policy: always
+    state: started

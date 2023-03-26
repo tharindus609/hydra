@@ -7,3 +7,4 @@
     - docker
     - portainer-agent
     - cadvisor
+    - promtail
