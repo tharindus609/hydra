@@ -1,0 +1,20 @@
+---
+- name: "Install Fisher"
+  ansible.builtin.shell: |
+    /usr/bin/fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
+
+- name: "Set fisher plugin list"
+  ansible.builtin.copy:
+    src: fish_plugins
+    dest: "{{ ansible_user_dir }}/.config/fish/fish_plugins"
+
+- name: "Install fisher plugins"
+  ansible.builtin.shell: |
+    /usr/bin/fish -c 'fisher update'
+    
+
+- name: Add fish config to ~/.config/fish/config.fish
+  ansible.builtin.template:
+    src: config.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/config.fish"
+    mode: '0644'
