@@ -11,10 +11,22 @@
 - name: "Install fisher plugins"
   ansible.builtin.shell: |
     /usr/bin/fish -c 'fisher update'
-    
 
-- name: Add fish config to ~/.config/fish/config.fish
+- name: Create fish configuration directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/fish/conf.d"
+
+- name: Add main fish config to ~/.config/fish/config.fish
   ansible.builtin.template:
     src: config.fish.j2
     dest: "{{ ansible_user_dir }}/.config/fish/config.fish"
     mode: '0644'
+
+- name: copy fish configs to ~/.config/fish/conf.d/
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ ansible_user_dir }}/.config/fish/conf.d/{{ item.dest }}"
+    mode: '0644'
+  loop:
+    - { src: conf_common.fish.j2, dest: common.fish}
+    - { src: conf_tide.fish.j2, dest: tide.fish}

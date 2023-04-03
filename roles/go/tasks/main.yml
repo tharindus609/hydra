@@ -1,0 +1,23 @@
+---
+- name: Create go install directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ go_install_path }}"
+    state: directory
+
+- name: Download go binaries package
+  ansible.builtin.get_url:
+    url: "https://go.dev/dl/{{ go_binary_package }}.tar.gz"
+    dest: /tmp/
+
+- name: Extract go binary package
+  become: true
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ go_binary_package }}.tar.gz"
+    dest: "{{ go_install_path }}"
+    remote_src: true
+
+- name: Add go binary to fish path
+  ansible.builtin.template:
+    src: go.fish.j2
+    dest: "{{ ansible_user_dir }}/.config/fish/conf.d/go.fish"

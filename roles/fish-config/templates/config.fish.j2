@@ -1,13 +1,5 @@
-#===============================================================#
-# fully managed by ansible -- Manual edits will be OVER-WRITTEN #
-#===============================================================#
+{{ ansible_managed | comment('plain') }}
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-
-fish_add_path {{ ansible_user_dir }}/.local/bin
-
-# Tide configs
-set --global tide_status_always_display true
-set --global tide_jobs_verbose true
