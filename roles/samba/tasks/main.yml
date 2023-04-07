@@ -1,0 +1,26 @@
+---
+- name: Install required packages
+  become: true
+  ansible.builtin.apt:
+    name: samba
+    state: present
+
+- name: Setup share folder
+  become: true
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  with_items: "{{ samba_shares }}"
+
+- name: Add samba config to /etc/samba/smb.conf
+  become: true
+  ansible.builtin.template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    mode: '0644'
+    validate: 'testparm -s %s'
+  notify:
+    - Restart_samba_services

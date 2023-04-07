@@ -1,0 +1,6 @@
+---
+- name: Restart_samba_services
+  become: true
+  ansible.builtin.service:
+    name: smbd
+    state: restarted

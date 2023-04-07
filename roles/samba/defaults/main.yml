@@ -1,0 +1,4 @@
+---
+samba_shares:
+  - name: mediashare
+    path: /media
