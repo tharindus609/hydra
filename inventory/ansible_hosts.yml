@@ -1,0 +1,5 @@
+[pi]
+picore.bi-frost
+
+[dev]
+olympus.bi-frost ansible_user=lucifer
