@@ -1,0 +1,34 @@
+---
+- name: Enable cgroup cpuset 
+  become: true
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: '^((?!.*\bcgroup_enable=cpuset\b).*)$'
+    line: '\1 cgroup_enable=cpuset'
+    backrefs: true
+  notify: reboot_system
+  # register: enable_cgroup_cpuset
+
+- name: Activating cgroup_memory
+  become: true
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: '^((?!.*\bcgroup_memory=1\b).*)$'
+    line: '\1 cgroup_memory=1'
+    backrefs: true
+  notify: reboot_system
+  # register: activate_cgroup_memory
+
+- name: Enable cgroup memory
+  become: true
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: '^((?!.*\bcgroup_enable=memory\b).*)$'
+    line: '\1 cgroup_enable=memory'
+    backrefs: true
+  notify: reboot_system
+  # register: enable_cgroup_memory
+
+# - name: Reboot
+  # notify: reboot_system
+  # when: enable_cgroup_cpuset.changed or activate_cgroup_memory.changed or enable_cgroup_memory.changed

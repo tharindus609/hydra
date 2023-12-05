@@ -9,6 +9,11 @@
       - lsb-release
     state: present
 
+- name: Create /etc/apt/keyrings dir
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
 
 - name: Download Docker GPG key
   become: true

@@ -1,5 +1,6 @@
 [pi]
-picore.bi-frost
+pi-core-1.bi-frost
+pi-node-1.bi-frost
 
 [dev]
 olympus.bi-frost ansible_user=lucifer
