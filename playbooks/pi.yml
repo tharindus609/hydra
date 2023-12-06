@@ -9,4 +9,4 @@
     - cadvisor
     - promtail
     - fish-config
-    - k3s
+    # - k3s

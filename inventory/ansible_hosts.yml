@@ -1,6 +1,6 @@
 [pi]
-pi-core-1.bi-frost
-pi-node-1.bi-frost
+pi-core-1.bi-frost ansible_user=piroot
+pi-node-1.bi-frost ansible_user=piroot
 
 [dev]
 olympus.bi-frost ansible_user=lucifer
