@@ -4,3 +4,6 @@ pi-node-1.bi-frost ansible_user=piroot
 
 [dev]
 olympus.bi-frost ansible_user=lucifer
+
+[mac]
+alfheim.bi-frost ansible_user=lucifer ansible_connection=local

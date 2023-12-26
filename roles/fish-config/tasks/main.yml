@@ -1,16 +1,26 @@
 ---
-- name: "Install Fisher"
+- name: "Install Fisher (debian)"
   ansible.builtin.shell: |
     /usr/bin/fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
+  when:
+    - ansible_facts['os_family'] == "Debian"
 
 - name: "Set fisher plugin list"
   ansible.builtin.copy:
     src: fish_plugins
     dest: "{{ ansible_user_dir }}/.config/fish/fish_plugins"
 
-- name: "Install fisher plugins"
+- name: "Install fisher plugins (debian)"
   ansible.builtin.shell: |
     /usr/bin/fish -c 'fisher update'
+  when:
+    - ansible_facts['os_family'] == "Debian"
+
+- name: "Install fisher plugins (darwin)"
+  ansible.builtin.shell: |
+    /opt/homebrew/bin/fish -c 'fisher update'
+  when:
+    - ansible_facts['os_family'] == "Darwin"
 
 - name: Create fish configuration directory
   ansible.builtin.file:
@@ -22,7 +32,7 @@
     dest: "{{ ansible_user_dir }}/.config/fish/config.fish"
     mode: '0644'
 
-- name: copy fish configs to ~/.config/fish/conf.d/
+- name: copy fish configs to ~/.config/fish/conf.d/ (common)
   ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ ansible_user_dir }}/.config/fish/conf.d/{{ item.dest }}"
@@ -30,3 +40,14 @@
   loop:
     - { src: conf_common.fish.j2, dest: common.fish}
     - { src: conf_tide.fish.j2, dest: tide.fish}
+
+- name: copy fish configs to ~/.config/fish/conf.d/ (darwin)
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ ansible_user_dir }}/.config/fish/conf.d/{{ item.dest }}"
+    mode: '0644'
+  loop:
+    - { src: conf_subl.fish.j2, dest: subl.fish}
+    - { src: conf_homebrew.fish.j2, dest: homebrew.fish}
+  when:
+   - ansible_facts['os_family'] == "Darwin"

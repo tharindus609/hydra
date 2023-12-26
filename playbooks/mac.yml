@@ -1,0 +1,7 @@
+---
+- name: Provision Macbook
+  hosts: mac
+
+  roles:
+    - homebrew
+    - fish-config

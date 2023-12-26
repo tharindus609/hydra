@@ -1,0 +1,15 @@
+---
+- name: install homebrew formulas
+  community.general.homebrew:
+    name: "{{ item }}"
+  with_items:
+    - fish
+    - fisher
+
+- name: install homebrew casks
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  with_items:
+    - mpv
+    - 1password-cli
+    - homebrew/cask-fonts/font-hack
