@@ -1,4 +1,13 @@
 ---
+- name: install Fish and Fisher
+  community.general.homebrew:
+    name: "{{ item }}"
+  with_items:
+    - fish
+    - fisher
+  when:
+   - ansible_facts['os_family'] == "Darwwin"
+
 - name: "Install Fisher (debian)"
   ansible.builtin.shell: |
     /usr/bin/fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher'
@@ -12,15 +21,7 @@
 
 - name: "Install fisher plugins (debian)"
   ansible.builtin.shell: |
-    /usr/bin/fish -c 'fisher update'
-  when:
-    - ansible_facts['os_family'] == "Debian"
-
-- name: "Install fisher plugins (darwin)"
-  ansible.builtin.shell: |
-    /opt/homebrew/bin/fish -c 'fisher update'
-  when:
-    - ansible_facts['os_family'] == "Darwin"
+    fish -c 'fisher update'
 
 - name: Create fish configuration directory
   ansible.builtin.file:

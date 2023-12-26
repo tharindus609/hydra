@@ -1,11 +1,4 @@
 ---
-- name: install homebrew formulas
-  community.general.homebrew:
-    name: "{{ item }}"
-  with_items:
-    - fish
-    - fisher
-
 - name: install homebrew casks
   community.general.homebrew_cask:
     name: "{{ item }}"
