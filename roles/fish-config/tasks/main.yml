@@ -41,6 +41,7 @@
   loop:
     - { src: conf_common.fish.j2, dest: common.fish}
     - { src: conf_tide.fish.j2, dest: tide.fish}
+    - { src: conf_rust.fish.j2, dest: rust.fish}
 
 - name: copy fish configs to ~/.config/fish/conf.d/ (darwin)
   ansible.builtin.template:
