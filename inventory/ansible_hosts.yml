@@ -1,5 +1,6 @@
 [pi]
 pi-core-1.bi-frost ansible_user=piroot
+pi-core-2.bi-frost ansible_user=piroot
 pi-node-1.bi-frost ansible_user=piroot
 
 [dev]
